@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import mongoose from "mongoose";
-import { fakeReview, getRndZipData } from "./getRndData.js";
+import { fakeReview, getRandomNumber, getRndZipData } from "./getRndData.js";
 
 const fakeUserSchema = new mongoose.Schema({
   email: {
@@ -84,10 +84,10 @@ const postFakeUser = async () => {
   const lastName = faker.person.lastName();
   const interest = Array.from({ length: 8 }, () => faker.commerce.department());
   const reviews = Array.from({ length: 5 }, () => fakeReview());
-  const following = Array.from({ length: 30 }, () =>
+  const following = Array.from({ length: getRandomNumber() }, () =>
     faker.database.mongodbObjectId(),
   );
-  const followers = Array.from({ length: 45 }, () =>
+  const followers = Array.from({ length: getRandomNumber() }, () =>
     faker.database.mongodbObjectId(),
   );
 

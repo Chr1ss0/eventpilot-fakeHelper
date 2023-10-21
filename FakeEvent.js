@@ -1,6 +1,6 @@
 import { faker, fakerDE } from "@faker-js/faker";
 import mongoose from "mongoose";
-import { getRndZipData } from "./getRndData.js";
+import { getRandomNumber, getRndZipData, realObjectId } from "./getRndData.js";
 
 const fakeEventSchema = new mongoose.Schema({
   organizer: {
@@ -72,6 +72,10 @@ const postFakeEvent = async () => {
   );
   const endDate = originalDate.toISOString();
   const { latitude, longitude, state, placeName } = await getRndZipData();
+  const registeredUser = realObjectId.slice(
+    Math.floor(Math.random() * 20),
+    Math.floor(Math.random() * realObjectId.length),
+  );
 
   const fakeEventData = {
     eventInfo: {
@@ -97,8 +101,8 @@ const postFakeEvent = async () => {
     cover: {
       secure_url: faker.image.urlLoremFlickr({ category: rndCategory }),
     },
-    organizer: "653105775cb1217b1a73f3c7",
-    registeredUser: [],
+    organizer: realObjectId[Math.floor(Math.random() * realObjectId.length)],
+    registeredUser,
     __v: 0,
   };
 
