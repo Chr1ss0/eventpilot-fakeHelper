@@ -2,51 +2,29 @@ import axios from "axios";
 import { faker } from "@faker-js/faker";
 
 const germanPostalCodes = [
-  "10115",
-  "80331",
   "30159",
   "86150",
   "52062",
-  "06108",
-  "39104",
   "79098",
-  "99084",
-  "18055",
-  "55116",
-  "34117",
-  "45468",
-  "67059",
-  "26122",
-  "51373",
-  "49074",
+
   "69117",
-  "44623",
   "33098",
   "93047",
   "85049",
   "97070",
-  "63065",
+  "21514",
   "89073",
   "74072",
   "75172",
-  "54290",
   "45657",
-  "56068",
-  "51429",
-  "07743",
+
   "57072",
   "31134",
-  "38226",
-  "07545",
   "33330",
   "35390",
   "58636",
-  "08056",
-  "19053",
   "52349",
-  "73728",
-  "71638",
-  "26382",
+
   "72072",
   "47441",
   "35037",
@@ -54,11 +32,11 @@ const germanPostalCodes = [
   "53840",
   "32423",
   "46284",
-  "24534",
   "45699",
 ];
 
-export const realObjectId = [];
+export const userIds = [];
+export const eventCreatorIds = [];
 
 async function getValidZip() {
   const validZipCodes = [];
@@ -98,11 +76,12 @@ export async function getRndZipData() {
 
 export function fakeReview() {
   return {
-    firstName: faker.person.firstName(),
+    // firstName: faker.person.firstName(),
+    postUser: userIds[Math.floor(Math.random() * userIds.length)],
     content: faker.word.words({ count: { min: 8, max: 15 } }),
     rating: faker.number.int({ min: 1, max: 5 }),
     creationDate: faker.date.past(),
-    secure_url: faker.image.urlLoremFlickr({ category: "selfie" }),
+    // secure_url: faker.image.urlLoremFlickr({ category: "selfie" }),
   };
 }
 

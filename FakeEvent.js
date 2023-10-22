@@ -1,6 +1,11 @@
 import { faker, fakerDE } from "@faker-js/faker";
 import mongoose from "mongoose";
-import { getRandomNumber, getRndZipData, realObjectId } from "./getRndData.js";
+import {
+  eventCreatorIds,
+  getRandomNumber,
+  getRndZipData,
+  userIds,
+} from "./getRndData.js";
 
 const fakeEventSchema = new mongoose.Schema({
   organizer: {
@@ -60,7 +65,7 @@ const fakeEventSchema = new mongoose.Schema({
   ],
 });
 
-const FakeEventModel = mongoose.model("FakeEvent", fakeEventSchema);
+const FakeEventModel = mongoose.model("Event", fakeEventSchema);
 
 const postFakeEvent = async () => {
   const category = ["Sport", "Music", "Art", "Food"];
@@ -72,9 +77,9 @@ const postFakeEvent = async () => {
   );
   const endDate = originalDate.toISOString();
   const { latitude, longitude, state, placeName } = await getRndZipData();
-  const registeredUser = realObjectId.slice(
+  const registeredUser = userIds.slice(
     Math.floor(Math.random() * 20),
-    Math.floor(Math.random() * realObjectId.length),
+    Math.floor(Math.random() * userIds.length),
   );
 
   const fakeEventData = {
@@ -101,7 +106,8 @@ const postFakeEvent = async () => {
     cover: {
       secure_url: faker.image.urlLoremFlickr({ category: rndCategory }),
     },
-    organizer: realObjectId[Math.floor(Math.random() * realObjectId.length)],
+    organizer:
+      eventCreatorIds[Math.floor(Math.random() * eventCreatorIds.length)],
     registeredUser,
     __v: 0,
   };
@@ -110,7 +116,7 @@ const postFakeEvent = async () => {
 
   try {
     await event.save();
-    console.log("Fake event data saved");
+    console.log(`Fake event: ${rndCategory} saved`);
   } catch (error) {
     console.error("Error saving fake event data:");
   }
